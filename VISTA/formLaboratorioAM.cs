@@ -76,26 +76,20 @@ namespace VISTA
             {
                 if (modificar)
                 {
-                    if (ControladoraLaboratorio.Instancia.RecuperarLaboratorios().Any(l => l.NombreLaboratorio.ToLower() == l.NombreLaboratorio.ToLower() && l.Sede.NombreSede.ToLower() == l.Sede.NombreSede.ToLower()))
-                    {
-                        MessageBox.Show("Ya existe un laboratorio con el mismo nombre en esa sede", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
                     string NombreSede = cbSedes.Text; // se recupera el nombre de la sede seleccionada del combobox de sedes
-                    Sede sede = ControladoraSede.Instancia.RecuperarSedes().FirstOrDefault(s => s.NombreSede.ToLower() == NombreSede.ToLower()); // se recupera la sede seleccionada del combobox de sedes para asignarla al laboratorio que se va a modificar
-                    laboratorio.SedeId = sede.SedeId;
+                    laboratorio.Sede = ControladoraSede.Instancia.RecuperarSedes().FirstOrDefault(s => s.NombreSede.ToLower() == NombreSede.ToLower()); // se recupera la sede seleccionada del combobox de sedes para asignarla al laboratorio que se va a modificar
+                    laboratorio.CapacidadMaxima = (int)numCapacidad.Value;
                     laboratorio.NombreLaboratorio = txtNombreLaboratorio.Text;
-                    laboratorio.CapacidadMaxima = (int)numCapacidad.Value; // se asigna la capacidad máxima de computadoras al laboratorio que se va a modificar
+
                     var mensaje = ControladoraLaboratorio.Instancia.ModificarLaboratorio(laboratorio);
                     MessageBox.Show(mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    string NombreSede = cbSedes.Text;
-                    Sede sede = ControladoraSede.Instancia.RecuperarSedes().FirstOrDefault(s => s.NombreSede.ToLower() == NombreSede.ToLower()); // se recupera la sede seleccionada del combobox de sedes para asignarla al laboratorio que se va a modificar
-                    laboratorio.SedeId = sede.SedeId;
+                    string NombreSede = cbSedes.Text; // se recupera el nombre de la sede seleccionada del combobox de sedes
+                    laboratorio.Sede = ControladoraSede.Instancia.RecuperarSedes().FirstOrDefault(s => s.NombreSede.ToLower() == NombreSede.ToLower()); // se recupera la sede seleccionada del combobox de sedes para asignarla al laboratorio que se va a modificar
+                    laboratorio.CapacidadMaxima = (int)numCapacidad.Value;
                     laboratorio.NombreLaboratorio = txtNombreLaboratorio.Text;
-                    laboratorio.CapacidadMaxima = (int)numCapacidad.Value; // se asigna la capacidad máxima de computadoras al laboratorio que se va a modificar
 
                     var mensaje = ControladoraLaboratorio.Instancia.AgregarLaboratorio(laboratorio);
                     MessageBox.Show(mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -123,6 +117,8 @@ namespace VISTA
             }
             return true;
         }
+
+
 
     }
 }

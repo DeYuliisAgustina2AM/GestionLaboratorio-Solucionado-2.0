@@ -43,24 +43,21 @@ namespace Controladora
         {
             try
             {
+                //se verifica que no exista un laboratorio con el mismo nombre en la misma sede
                 var listaLaboratorios = Context.Instancia.Laboratorios.ToList().AsReadOnly();
-                var laboratorioEncontrado = listaLaboratorios.FirstOrDefault(l => l.LaboratorioId == laboratorio.LaboratorioId && l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower());
+                var laboratorioEncontrado = listaLaboratorios.FirstOrDefault(l => l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower() && l.Sede.NombreSede == laboratorio.Sede.NombreSede);
                 if (laboratorioEncontrado == null)
                 {
-                    var laboratorioExistente = listaLaboratorios.FirstOrDefault(l => l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower() || l.Sede == laboratorio.Sede);
-                    if (laboratorioExistente == null)
+                    Context.Instancia.Laboratorios.Add(laboratorio);
+                    int insertados = Context.Instancia.SaveChanges();
+                    if (insertados > 0)
                     {
-                        Context.Instancia.Laboratorios.Add(laboratorio);
-                        int agregados = Context.Instancia.SaveChanges();
-                        if (agregados > 0)
-                        {
-                            return $"El laboratorio se agregó correctamente";
-                        }
-                        else return $"El laboratorio no se ha podido agregar";
+                        return $"El laboratorio se agregó correctamente";
                     }
-                    else return $"Ya existe un laboratorio con el nombre: {laboratorio.NombreLaboratorio} en la sede por favor elija otro nombre.";
+                    else return $"El laboratorio no se ha podido agregar";
                 }
                 else return $"El laboratorio ya existe";
+               
             }
             catch (Exception ex)
             {
@@ -74,7 +71,7 @@ namespace Controladora
             {
                 var listaLaboratorios = Context.Instancia.Laboratorios.ToList().AsReadOnly();
                 var laboratorioEncontrado = listaLaboratorios.FirstOrDefault(l => l.LaboratorioId == laboratorio.LaboratorioId && l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower());
-                if (laboratorioEncontrado != null) 
+                if (laboratorioEncontrado != null)
                 {
                     Context.Instancia.Laboratorios.Update(laboratorio);
                     int modificados = Context.Instancia.SaveChanges();

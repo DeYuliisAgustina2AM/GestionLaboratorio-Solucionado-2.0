@@ -64,12 +64,13 @@ namespace VISTA
                 var laboratorioSeleccionado = (Laboratorio)dgvLaboratorio.CurrentRow.DataBoundItem;
                 formLaboratorioAM formLaboratorioAM = new formLaboratorioAM(laboratorioSeleccionado);
                 formLaboratorioAM.ShowDialog();
+                ActualizarGrilla();
+
             }
             else
             {
                 MessageBox.Show("Seleccione un laboratorio para modificarlo");
             }
-            ActualizarGrilla();
 
         }
 
