@@ -1,14 +1,5 @@
 ﻿using Controladora;
 using Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace VISTA
 {
@@ -62,8 +53,8 @@ namespace VISTA
             {
                 lblAgregaroModificar.Text = "Modificar Laboratorio";
 
-                txtNombreLaboratorio.Text = laboratorio.NombreLaboratorio;
-                cbSedes.SelectedValue = laboratorio.Sede;
+                txtNombreLaboratorio.Text = laboratorio.NombreLaboratorio.ToString();
+                cbSedes.SelectedItem = laboratorio.Sede.NombreSede.ToString(); // se selecciona la sede del laboratorio que se va a modificar en el combobox de sedes
                 numCapacidad.Value = laboratorio.CapacidadMaxima;
 
             }
@@ -77,12 +68,18 @@ namespace VISTA
                 if (modificar)
                 {
                     string NombreSede = cbSedes.Text; // se recupera el nombre de la sede seleccionada del combobox de sedes
+                    if (ControladoraLaboratorio.Instancia.RecuperarLaboratorios().Any(l => l.Sede.NombreSede.ToLower() == NombreSede.ToLower() && l.NombreLaboratorio.ToLower() == txtNombreLaboratorio.Text.ToLower() && l.LaboratorioId != laboratorio.LaboratorioId))
+                    {
+                        MessageBox.Show("Ya existe un laboratorio con ese nombre en la sede seleccionada.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     laboratorio.Sede = ControladoraSede.Instancia.RecuperarSedes().FirstOrDefault(s => s.NombreSede.ToLower() == NombreSede.ToLower()); // se recupera la sede seleccionada del combobox de sedes para asignarla al laboratorio que se va a modificar
                     laboratorio.CapacidadMaxima = (int)numCapacidad.Value;
                     laboratorio.NombreLaboratorio = txtNombreLaboratorio.Text;
 
                     var mensaje = ControladoraLaboratorio.Instancia.ModificarLaboratorio(laboratorio);
                     MessageBox.Show(mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
                 else
                 {
@@ -117,8 +114,6 @@ namespace VISTA
             }
             return true;
         }
-
-
 
     }
 }

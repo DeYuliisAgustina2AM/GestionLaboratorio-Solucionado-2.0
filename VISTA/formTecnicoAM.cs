@@ -1,16 +1,6 @@
 ﻿using Controladora;
 using Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace VISTA
 {
@@ -129,6 +119,7 @@ namespace VISTA
                     tecnico.NombreyApellido = txtNombreyApellido.Text;
                     tecnico.Dni = Convert.ToInt32(txtDni.Text);
                     tecnico.Legajo = Convert.ToInt32(txtLegajo.Text);
+
 
                     var mensaje = ControladoraTecnico.Instancia.AgregarTecnico(tecnico);
                     MessageBox.Show(mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);

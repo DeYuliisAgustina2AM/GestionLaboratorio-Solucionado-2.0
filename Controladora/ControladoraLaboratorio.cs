@@ -45,7 +45,7 @@ namespace Controladora
             {
                 //se verifica que no exista un laboratorio con el mismo nombre en la misma sede
                 var listaLaboratorios = Context.Instancia.Laboratorios.ToList().AsReadOnly();
-                var laboratorioEncontrado = listaLaboratorios.FirstOrDefault(l => l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower() && l.Sede.NombreSede == laboratorio.Sede.NombreSede);
+                var laboratorioEncontrado = listaLaboratorios.FirstOrDefault(l => l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower() && l.Sede.NombreSede == laboratorio.Sede.NombreSede); //busco el laboratorio por nombre y sede para verificar que no exista un laboratorio con el mismo nombre en la misma sede
                 if (laboratorioEncontrado == null)
                 {
                     Context.Instancia.Laboratorios.Add(laboratorio);
@@ -70,7 +70,7 @@ namespace Controladora
             try
             {
                 var listaLaboratorios = Context.Instancia.Laboratorios.ToList().AsReadOnly();
-                var laboratorioEncontrado = listaLaboratorios.FirstOrDefault(l => l.LaboratorioId == laboratorio.LaboratorioId && l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower());
+                var laboratorioEncontrado = listaLaboratorios.FirstOrDefault(l => l.NombreLaboratorio.ToLower() == laboratorio.NombreLaboratorio.ToLower() && l.Sede.NombreSede == laboratorio.Sede.NombreSede); //busco el laboratorio por nombre y sede para verificar que no exista un laboratorio con el mismo nombre en la misma sede
                 if (laboratorioEncontrado != null)
                 {
                     Context.Instancia.Laboratorios.Update(laboratorio);
@@ -88,6 +88,7 @@ namespace Controladora
                 throw new Exception("Error al modificar el laboratorio", ex);
             }
         }
+
 
         public string EliminarLaboratorio(Laboratorio laboratorio)
         {

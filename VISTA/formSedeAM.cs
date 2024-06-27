@@ -37,8 +37,8 @@ namespace VISTA
             {
                 lblAgregaroModificar.Text = "Modificar Sede";
 
-                txtNombreSede.Text = sede.NombreSede;
-                txtDireccionSede.Text = sede.DireccionSede;
+                txtNombreSede.Text = sede.NombreSede.ToString();
+                txtDireccionSede.Text = sede.DireccionSede.ToString();
             }
             else lblAgregaroModificar.Text = "Agregar Sede";
         }

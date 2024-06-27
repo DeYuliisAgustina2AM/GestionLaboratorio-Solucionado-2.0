@@ -22,5 +22,11 @@ namespace Entidades
         {
             return NombreyApellido; //muestro el nombre y apellido del tecnico
         }
+
+        public int CantidadTickets()
+        {
+            return Tickets.Count;
+        }
+
     }
 }

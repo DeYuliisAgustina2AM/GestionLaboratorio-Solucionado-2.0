@@ -22,7 +22,6 @@ namespace VISTA
             computadora = computadoraModificar;
             modificar = true;
             ActualizarCb();
-            ModificarCb();
         }
 
         private void ActualizarCb()
@@ -38,19 +37,9 @@ namespace VISTA
             foreach (CondicionComputadora condicion in Enum.GetValues(typeof(CondicionComputadora))) 
             {
                 cbCondicion.Items.Add(condicion.ToString());
-            }          
+            }
         }
 
-        public void ModificarCb()
-        {
-            if (computadora.Laboratorio != null) //si la computadora tiene un laboratorio asignado, se selecciona en el combobox de laboratorios
-            {
-                cbLaboratorio.SelectedItem = computadora.Laboratorio.ToString();
-            }
-            txtDescripcion.Text = computadora.DescripcionComputadora.ToString();
-            cbEstado.SelectedItem = computadora.estado.ToString();
-            cbCondicion.SelectedItem = computadora.condicion.ToString();
-        }
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
@@ -73,11 +62,12 @@ namespace VISTA
             {
                 lblAgregaroModificar.Text = "Modificar Computadora";
 
-                txtCodigoComputadora.Text = computadora.CodigoComputadora;
-                txtDescripcion.Text = computadora.DescripcionComputadora;
-                cbLaboratorio.SelectedValue = computadora.Laboratorio;
-                cbEstado.SelectedValue = computadora.estado;
-                cbCondicion.SelectedValue = computadora.condicion; //se asignan los valores de la computadora a los campos del formulario
+                txtCodigoComputadora.Text = computadora.CodigoComputadora.ToString();
+                txtDescripcion.Text = computadora.DescripcionComputadora.ToString();
+                cbLaboratorio.SelectedItem = computadora.Laboratorio.ToString();
+                cbEstado.SelectedItem = computadora.estado.ToString();
+                cbCondicion.SelectedItem = computadora.condicion.ToString();
+
             }
             else lblAgregaroModificar.Text = "Agregar Computadora";
         }
@@ -89,7 +79,7 @@ namespace VISTA
                 if (modificar)
                 {
                     string NombreLaboratorio = cbLaboratorio.Text; // se recupera el nombre de la sede seleccionada del combobox de sedes
-                    Laboratorio laboratorio = ControladoraLaboratorio.Instancia.RecuperarLaboratorios().FirstOrDefault(s => s.NombreLaboratorio.ToLower() == NombreLaboratorio.ToLower()); //se recupera los laboratorios para asignarlos a la computadora que se va a modificar
+                    var laboratorio = ControladoraLaboratorio.Instancia.RecuperarLaboratorios().FirstOrDefault(s => s.NombreLaboratorio.ToLower() == NombreLaboratorio.ToLower()); //se recupera los laboratorios para asignarlos a la computadora que se va a modificar
                     computadora.LaboratorioId = laboratorio.LaboratorioId;
 
                     if(ControladoraComputadora.Instancia.RecuperarComputadoras().Any(c => c.CodigoComputadora.ToLower() == txtCodigoComputadora.Text.ToLower()))
@@ -111,7 +101,7 @@ namespace VISTA
                 else
                 {
                     string NombreLaboratorio = cbLaboratorio.Text; // se recupera el nombre de la sede seleccionada del combobox de sedes
-                    Laboratorio laboratorio = ControladoraLaboratorio.Instancia.RecuperarLaboratorios().FirstOrDefault(s => s.NombreLaboratorio.ToLower() == NombreLaboratorio.ToLower()); //se recupera los laboratorios para asignarlos a la computadora que se va a modificar
+                    var laboratorio = ControladoraLaboratorio.Instancia.RecuperarLaboratorios().FirstOrDefault(s => s.NombreLaboratorio.ToLower() == NombreLaboratorio.ToLower()); //se recupera los laboratorios para asignarlos a la computadora que se va a modificar
                     computadora.LaboratorioId = laboratorio.LaboratorioId;
 
                     computadora.CodigoComputadora = txtCodigoComputadora.Text;

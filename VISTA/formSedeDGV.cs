@@ -1,14 +1,5 @@
 ﻿using Controladora;
 using Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace VISTA
 {
@@ -19,6 +10,7 @@ namespace VISTA
         {
             InitializeComponent();
             ActualizarGrilla();
+            dgvSede.AllowUserToResizeColumns = false;
         }
 
         private void ActualizarGrilla()
@@ -83,12 +75,26 @@ namespace VISTA
         {
             if (txtBuscarSede.Text != "")
             {
-                dgvSede.DataSource = ControladoraSede.Instancia.RecuperarSedes().Where(s => s.NombreSede.ToLower().Contains(txtBuscarSede.Text.ToLower())).ToList();
+                var listaSedes = ControladoraSede.Instancia.RecuperarSedes();
+                var sedeEncontrada = listaSedes.FirstOrDefault(c => c.NombreSede.ToLower().Contains(txtBuscarSede.Text.ToLower()) || c.DireccionSede.ToLower().Contains(txtBuscarSede.Text.ToLower()));
+                if (sedeEncontrada != null)
+                {
+                    dgvSede.DataSource = null; //limpio la grilla
+                    dgvSede.DataSource = new List<Sede> { sedeEncontrada }; //visualizo la sede encontrada en la grilla
+                }
+                else
+                {
+                    MessageBox.Show("No se ha encontrado la sede ingresada, intente de nuevo");
+                    ActualizarGrilla();
+                }
             }
             else
             {
-                ActualizarGrilla(); 
+                MessageBox.Show("Ingrese un nombre o una dirección de sede para buscar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+  
+
+
         }
     }
 }  

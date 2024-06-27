@@ -33,7 +33,7 @@
             btnModificar = new Button();
             btnEliminar = new Button();
             btnBuscar = new Button();
-            textBox1 = new TextBox();
+            txtBuscarTecnico = new TextBox();
             label1 = new Label();
             btnCerrar = new Button();
             btnMinimizar = new Button();
@@ -91,13 +91,14 @@
             btnBuscar.TabIndex = 4;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
-            // textBox1
+            // txtBuscarTecnico
             // 
-            textBox1.Location = new Point(565, 95);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(196, 23);
-            textBox1.TabIndex = 5;
+            txtBuscarTecnico.Location = new Point(565, 95);
+            txtBuscarTecnico.Name = "txtBuscarTecnico";
+            txtBuscarTecnico.Size = new Size(196, 23);
+            txtBuscarTecnico.TabIndex = 5;
             // 
             // label1
             // 
@@ -139,7 +140,7 @@
             Controls.Add(btnMinimizar);
             Controls.Add(btnCerrar);
             Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(txtBuscarTecnico);
             Controls.Add(btnBuscar);
             Controls.Add(btnEliminar);
             Controls.Add(btnModificar);
@@ -162,7 +163,7 @@
         private Button btnModificar;
         private Button btnEliminar;
         private Button btnBuscar;
-        private TextBox textBox1;
+        private TextBox txtBuscarTecnico;
         private Label label1;
         private Button btnCerrar;
         private Button btnMinimizar;

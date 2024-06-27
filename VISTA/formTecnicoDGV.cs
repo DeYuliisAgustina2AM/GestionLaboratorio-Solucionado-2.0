@@ -1,6 +1,5 @@
 ﻿using Controladora;
 using Entidades;
-using System.Data;
 
 namespace VISTA
 {
@@ -9,6 +8,8 @@ namespace VISTA
         public formTecnicoDGV()
         {
             InitializeComponent();
+            ActualizarGrilla();
+            dgvTecnico.AllowUserToResizeColumns = false;
         }
 
         private void ActualizarGrilla()
@@ -67,6 +68,30 @@ namespace VISTA
                 MessageBox.Show("Seleccione un tecnico para modificarlo");
             }
             ActualizarGrilla();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (txtBuscarTecnico.Text != "")
+            {
+                var listaTecnicos = ControladoraTecnico.Instancia.RecuperarTecnicos();
+                var tecnicoEncontrado = listaTecnicos.FirstOrDefault(t => t.NombreyApellido.ToLower().Contains(txtBuscarTecnico.Text.ToLower()) || t.Dni.ToString().Contains(txtBuscarTecnico.Text) || t.Legajo.ToString().Contains(txtBuscarTecnico.Text));
+                if (tecnicoEncontrado != null)
+                {
+                    dgvTecnico.DataSource = null;
+                    dgvTecnico.DataSource = new List<Tecnico> { tecnicoEncontrado };
+                }
+                else
+                {
+                    MessageBox.Show("No se ha encontrado el tecnico");
+                    ActualizarGrilla();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un nombre y apellido, dni o legajo para buscar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
     }
 }

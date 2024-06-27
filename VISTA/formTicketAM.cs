@@ -1,9 +1,7 @@
 ﻿using Entidades;
 using Controladora;
-using static Entidades.Computadora;
 using static Entidades.Ticket;
-using Modelo;
-using System.Data.Common;
+
 
 namespace VISTA
 {
@@ -85,7 +83,7 @@ namespace VISTA
                 dtpFechaInicio.Value = ticket.FechaCreacion;
                 txtDescripcion.Text = ticket.DescripcionTicket;
 
-                cbCodigoPc.SelectedItem = ticket.Computadora.CodigoComputadora;
+                cbCodigoPc.SelectedItem = ticket.Computadora.CodigoComputadora.ToString();
                 cbTipoTicket.SelectedItem = ticket.tipo.ToString();
                 cbCategoria.SelectedItem = ticket.categoria.ToString();
                 cbEstado.SelectedItem = ticket.estado.ToString();
@@ -106,7 +104,6 @@ namespace VISTA
                     // Verificar si existe otro ticket con el mismo código de computadora
                     if (ControladoraTicket.Instancia.RecuperarTicket().Any(t => t.Computadora.CodigoComputadora == codigoComputadora && t != ticket))
                     {
-                        // Mostrar un mensaje de error indicando que ya existe un ticket con ese código de computadora
                         MessageBox.Show("Ya existe otro ticket con el mismo código de computadora", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }

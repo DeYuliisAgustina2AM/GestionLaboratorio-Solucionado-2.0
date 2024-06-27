@@ -9,6 +9,7 @@ namespace VISTA
         {
             InitializeComponent();
             ActualizarGrilla();
+            dgvComputadora.AllowUserToResizeColumns = false;
         }
 
         private void ActualizarGrilla()
@@ -16,6 +17,7 @@ namespace VISTA
             dgvComputadora.DataSource = null;
             dgvComputadora.DataSource = ControladoraComputadora.Instancia.RecuperarComputadoras();
             dgvComputadora.Columns["Laboratorio"].Visible = false;
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -74,13 +76,25 @@ namespace VISTA
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+
             if (txtBuscarComputadora.Text != "")
             {
-                dgvComputadora.DataSource = ControladoraComputadora.Instancia.RecuperarComputadoras().Where(c => c.CodigoComputadora.ToLower().Contains(txtBuscarComputadora.Text.ToLower())).ToList(); 
+                var listaComputadora = ControladoraComputadora.Instancia.RecuperarComputadoras();
+                var computadoraEncontrada = listaComputadora.FirstOrDefault(c => c.CodigoComputadora.ToLower().Contains(txtBuscarComputadora.Text.ToLower()));
+                if (computadoraEncontrada != null)
+                {
+                    dgvComputadora.DataSource = null;
+                    dgvComputadora.DataSource = new List<Computadora> { computadoraEncontrada };
+                }
+                else
+                {
+                    MessageBox.Show("No se ha encontrado la computadora");
+                    ActualizarGrilla();
+                }
             }
             else
             {
-                ActualizarGrilla();
+                MessageBox.Show("Ingrese un código de computadora para buscar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
