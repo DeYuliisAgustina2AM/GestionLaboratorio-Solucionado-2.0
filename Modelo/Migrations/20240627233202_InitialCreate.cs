@@ -19,7 +19,8 @@ namespace Modelo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreyApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Dni = table.Column<long>(type: "bigint", nullable: false),
-                    Legajo = table.Column<int>(type: "int", nullable: false)
+                    Legajo = table.Column<int>(type: "int", nullable: false),
+                    CantidadTickets = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

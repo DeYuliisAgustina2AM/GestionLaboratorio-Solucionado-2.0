@@ -12,7 +12,7 @@ using Modelo;
 namespace Modelo.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240627051552_InitialCreate")]
+    [Migration("20240627233202_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -120,6 +120,9 @@ namespace Modelo.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TecnicoId"));
+
+                    b.Property<int>("CantidadTickets")
+                        .HasColumnType("int");
 
                     b.Property<long>("Dni")
                         .HasColumnType("bigint");

@@ -50,12 +50,12 @@ namespace VISTA
                 if (modificar)
                 {
                     sede.Universidad = ControladoraSede.Instancia.RecuperarUniversidad();
-                    if(ControladoraSede.Instancia.RecuperarSedes().Any(s => s.NombreSede.ToLower() == txtNombreSede.Text.ToLower()))
+                    if(ControladoraSede.Instancia.RecuperarSedes().Any(s => s.UniversidadId == sede.UniversidadId && s.NombreSede.ToLower() == txtNombreSede.Text.ToLower() && s.SedeId != sede.SedeId)) //con s.SedeId != sede.SedeId comparo el SedeId del elemento s con el SedeId de la sede actual verificando que el elemento no sea la misma sede que se está modificando.
                     {
                         MessageBox.Show("Ya existe una sede con ese nombre", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    if(ControladoraSede.Instancia.RecuperarSedes().Any(s => s.DireccionSede.ToLower() == txtDireccionSede.Text.ToLower()))
+                    if(ControladoraSede.Instancia.RecuperarSedes().Any(s => s.UniversidadId == sede.UniversidadId && s.DireccionSede.ToLower() == txtDireccionSede.Text.ToLower() && s.SedeId != sede.SedeId)) 
                     {
                         MessageBox.Show("Ya existe una sede con esa dirección", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;

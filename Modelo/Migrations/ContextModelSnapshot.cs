@@ -118,6 +118,9 @@ namespace Modelo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TecnicoId"));
 
+                    b.Property<int>("CantidadTickets")
+                        .HasColumnType("int");
+
                     b.Property<long>("Dni")
                         .HasColumnType("bigint");
 

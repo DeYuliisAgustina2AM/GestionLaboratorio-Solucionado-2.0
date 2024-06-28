@@ -113,6 +113,20 @@ namespace Controladora
             }
         }
 
+        public int ContarTicketsAsignados(Tecnico tecnico)
+        {
+            try
+            {
+                var listaTickets = Context.Instancia.Tickets.ToList();
+                var cantidadTickets = listaTickets.Count(t => t.TicketId == tecnico.CantidadTickets);
+                return cantidadTickets;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al contar los tickets asignados al técnico", ex);
+            }
+        }
+
         
     }
 }

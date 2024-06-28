@@ -15,17 +15,13 @@ namespace Entidades
         public string NombreyApellido { get; set; }
         public long Dni { get; set; }
         public int Legajo { get; set; }
+        public int CantidadTickets { get; set; }
 
         public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>(); //un soporte puede tener muchos tickets
 
         public override string ToString()
         {
             return NombreyApellido; //muestro el nombre y apellido del tecnico
-        }
-
-        public int CantidadTickets()
-        {
-            return Tickets.Count;
         }
 
     }
