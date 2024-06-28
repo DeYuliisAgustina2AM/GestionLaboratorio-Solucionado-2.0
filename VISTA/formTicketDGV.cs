@@ -17,6 +17,7 @@ namespace VISTA
         {
             dgvTicket.DataSource = null;
             dgvTicket.DataSource = ControladoraTicket.Instancia.RecuperarTicket();
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

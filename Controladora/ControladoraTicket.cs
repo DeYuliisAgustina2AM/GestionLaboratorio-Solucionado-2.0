@@ -133,5 +133,19 @@ namespace Controladora
             }
         }
 
+        public int ContarTicketsPorTecnico(Tecnico tecnico)
+        {
+            try
+            {
+                var listaTickets = Context.Instancia.Tickets.ToList().AsReadOnly();
+                var ticketsPorTecnico = listaTickets.Where(t => t.Tecnico.TecnicoId == tecnico.TecnicoId).ToList();
+                return ticketsPorTecnico.Count;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

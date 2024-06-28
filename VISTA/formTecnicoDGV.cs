@@ -16,6 +16,13 @@ namespace VISTA
         {
             dgvTecnico.DataSource = null;
             dgvTecnico.DataSource = ControladoraTecnico.Instancia.RecuperarTecnicos();
+
+            foreach (DataGridViewRow row in dgvTecnico.Rows)
+            {
+                var tecnico = (Tecnico)row.DataBoundItem;
+                row.Cells["CantidadTickets"].Value = ControladoraTicket.Instancia.ContarTicketsPorTecnico(tecnico);
+            }
+            
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -38,6 +45,7 @@ namespace VISTA
         private void formTecnicoDGV_Load(object sender, EventArgs e)
         {
             ActualizarGrilla();
+
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -91,7 +99,7 @@ namespace VISTA
             {
                 MessageBox.Show("Ingrese un nombre y apellido, dni o legajo para buscar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
+
     }
 }
